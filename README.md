@@ -148,20 +148,38 @@ gitignorearlo y quitar la carpeta del build.
 
 ## Interfaz web
 
+**Live: https://dylanpiserchia.github.io/7D2D-Companion/**
+
 ```bash
 npm run dev:web    # levanta Vite en http://localhost:5173
 ```
 
 SPA en React (`src/web/`) que usa `ArmorBuildCalculator` directamente en el
-browser (sin backend). Por cada slot (Casco/Pecho/Guantes/Botas) elegís un
-set y su Tier (1-6) con un slider; el panel de resultados se recalcula en
+browser (sin backend). Por cada slot (Helmet/Chest/Gloves/Boots) elegís un
+set y su Tier (1-6) con el control de calidad (coloreado con la misma
+rampa Junk→Legendary del juego); el panel de resultados se recalcula en
 vivo: Armor Rating, penalizaciones, Set Bonus (activo/inactivo y nivel),
 pasivos y materiales de crafteo consolidados. Un selector rápido arriba
 permite equipar un set completo a Tier 6 de una.
 
 `npm run build:web` genera el build estático en `dist-web/` (separado del
-`dist/` de la librería) — listo para servir desde cualquier hosting
-estático.
+`dist/` de la librería).
+
+### Deploy a GitHub Pages
+
+Ya está configurado: `.github/workflows/deploy.yml` corre `npm run build:web`
+y publica `dist-web/` en cada push a `main`. `vite.config.ts` fija
+`base: '/7D2D-Companion/'` en build (GitHub Pages sirve el sitio bajo ese
+prefijo, no en la raíz del dominio) — si el repo cambia de nombre, hay que
+actualizar ese string.
+
+**Paso manual único** (no se puede hacer por git): en GitHub, andá a
+`Settings → Pages → Build and deployment → Source` y elegí **GitHub
+Actions**. Sin eso el workflow corre pero el deploy final falla porque
+Pages no está habilitado en el repo.
+
+Los íconos reales del juego (`public/icons/`, ~2.4 MB) se publican junto
+con el resto del sitio — ver la sección de arriba sobre esa decisión.
 
 ## Uso (librería / CLI)
 
