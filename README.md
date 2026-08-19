@@ -148,7 +148,7 @@ gitignorearlo y quitar la carpeta del build.
 
 ## Interfaz web
 
-**Live: https://dylanpiserchia.github.io/7D2D-Companion/**
+**Live: https://zenithardev.github.io/7D2D-Companion/**
 
 ```bash
 npm run dev:web    # levanta Vite en http://localhost:5173
