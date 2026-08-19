@@ -109,8 +109,7 @@ export default function App() {
       </main>
 
       <footer className="app-footer">
-        Data extracted from the game's <code>Data/Config</code> (items.xml, recipes.xml, buffs.xml). See the project
-        README to re-extract after a game update.
+        Data extracted from the game's <code>Data/Config</code> (items.xml, recipes.xml, buffs.xml).
       </footer>
     </div>
   );
