@@ -241,6 +241,22 @@
               }
             },
             "tags": "buffFatiguedTrigger,buffArmSprainedCHTrigger,buffLegSprainedCHTrigger,buffAbrasionCatch,buffLaceration,buffInfectionCatch,buffInjuryStunned01CHTrigger,buffInjuryBleedingTwo,buffInjuryBleedingBarbedWire"
+          },
+          {
+            "key": "dDamageResist",
+            "label": "Damage Resistance",
+            "unit": "%",
+            "progression": {
+              "kind": "explicit",
+              "values": {
+                "1": 2,
+                "2": 4,
+                "3": 6,
+                "4": 8,
+                "5": 10,
+                "6": 15
+              }
+            }
           }
         ],
         "progression": {
@@ -595,6 +611,22 @@
               }
             },
             "tags": "buffFatiguedTrigger,buffArmSprainedCHTrigger,buffLegSprainedCHTrigger,buffAbrasionCatch,buffLaceration,buffInfectionCatch,buffInjuryStunned01CHTrigger,buffInjuryBleedingTwo,buffInjuryBleedingBarbedWire"
+          },
+          {
+            "key": "dTreatedCritHealing",
+            "label": "Crit Injury Healing",
+            "unit": "%",
+            "progression": {
+              "kind": "explicit",
+              "values": {
+                "1": 2,
+                "2": 4,
+                "3": 6,
+                "4": 8,
+                "5": 10,
+                "6": 20
+              }
+            }
           }
         ],
         "progression": {
@@ -746,7 +778,7 @@
     "dataSource": "extracted",
     "extraction": {
       "gameVersion": "instalado-local",
-      "extractedAt": "2026-08-19T19:52:48.011Z",
+      "extractedAt": "2026-08-19T21:31:06.720Z",
       "sourceFiles": [
         "items.xml",
         "recipes.xml",
@@ -1631,7 +1663,7 @@
     "dataSource": "extracted",
     "extraction": {
       "gameVersion": "instalado-local",
-      "extractedAt": "2026-08-19T19:52:48.013Z",
+      "extractedAt": "2026-08-19T21:31:06.722Z",
       "sourceFiles": [
         "items.xml",
         "recipes.xml",
@@ -1913,6 +1945,22 @@
                 "4": 20,
                 "5": 20,
                 "6": 20
+              }
+            }
+          },
+          {
+            "key": "dNaturalCritHealing",
+            "label": "Crit Injury Healing",
+            "unit": "%",
+            "progression": {
+              "kind": "explicit",
+              "values": {
+                "1": 5,
+                "2": 10,
+                "3": 15,
+                "4": 20,
+                "5": 25,
+                "6": 50
               }
             }
           }
@@ -2301,6 +2349,22 @@
                 "6": 20
               }
             }
+          },
+          {
+            "key": "dFallDamage",
+            "label": "Fall Damage Resist",
+            "unit": "flat",
+            "progression": {
+              "kind": "explicit",
+              "values": {
+                "1": 1,
+                "2": 2,
+                "3": 3,
+                "4": 4,
+                "5": 5,
+                "6": 6
+              }
+            }
           }
         ],
         "progression": {
@@ -2452,7 +2516,7 @@
     "dataSource": "extracted",
     "extraction": {
       "gameVersion": "instalado-local",
-      "extractedAt": "2026-08-19T19:52:48.014Z",
+      "extractedAt": "2026-08-19T21:31:06.723Z",
       "sourceFiles": [
         "items.xml",
         "recipes.xml",
@@ -2535,6 +2599,22 @@
               }
             },
             "tags": "fitness"
+          },
+          {
+            "key": "dFitnessBartering",
+            "label": "Bartering (Fitness)",
+            "unit": "%",
+            "progression": {
+              "kind": "explicit",
+              "values": {
+                "1": -2,
+                "2": -4,
+                "3": -6,
+                "4": -8,
+                "5": -10,
+                "6": -20
+              }
+            }
           }
         ],
         "progression": {
@@ -3241,7 +3321,7 @@
     "dataSource": "extracted",
     "extraction": {
       "gameVersion": "instalado-local",
-      "extractedAt": "2026-08-19T19:52:48.014Z",
+      "extractedAt": "2026-08-19T21:31:06.723Z",
       "sourceFiles": [
         "items.xml",
         "recipes.xml",
@@ -3340,6 +3420,22 @@
               }
             },
             "tags": "buffInjuryStunned01"
+          },
+          {
+            "key": "dStunResist",
+            "label": "Stun Resist",
+            "unit": "%",
+            "progression": {
+              "kind": "explicit",
+              "values": {
+                "1": 2,
+                "2": 4,
+                "3": 6,
+                "4": 8,
+                "5": 10,
+                "6": 20
+              }
+            }
           }
         ],
         "progression": {
@@ -4094,7 +4190,7 @@
     "dataSource": "extracted",
     "extraction": {
       "gameVersion": "instalado-local",
-      "extractedAt": "2026-08-19T19:52:48.015Z",
+      "extractedAt": "2026-08-19T21:31:06.724Z",
       "sourceFiles": [
         "items.xml",
         "recipes.xml",
@@ -4193,6 +4289,22 @@
               }
             },
             "tags": "buffInjuryStunned01"
+          },
+          {
+            "key": "dStunResist",
+            "label": "Stun Resist",
+            "unit": "%",
+            "progression": {
+              "kind": "explicit",
+              "values": {
+                "1": 2,
+                "2": 4,
+                "3": 6,
+                "4": 8,
+                "5": 10,
+                "6": 20
+              }
+            }
           }
         ],
         "progression": {
@@ -4376,6 +4488,22 @@
                 "4": 10,
                 "5": 10,
                 "6": 10
+              }
+            }
+          },
+          {
+            "key": "dNaturalCritHealing",
+            "label": "Crit Injury Healing",
+            "unit": "%",
+            "progression": {
+              "kind": "explicit",
+              "values": {
+                "1": 2,
+                "2": 4,
+                "3": 6,
+                "4": 8,
+                "5": 10,
+                "6": 20
               }
             }
           }
@@ -4931,7 +5059,7 @@
     "dataSource": "extracted",
     "extraction": {
       "gameVersion": "instalado-local",
-      "extractedAt": "2026-08-19T19:52:48.015Z",
+      "extractedAt": "2026-08-19T21:31:06.724Z",
       "sourceFiles": [
         "items.xml",
         "recipes.xml",
@@ -5200,18 +5328,18 @@
             "tags": "buffFatiguedTrigger,buffArmSprainedCHTrigger,buffLegSprainedCHTrigger,buffAbrasionCatch,buffLaceration,buffInfectionCatch,buffInjuryStunned01CHTrigger,buffInjuryBleedingTwo,buffInjuryBleedingBarbedWire"
           },
           {
-            "key": "GeneralDamageResist",
-            "label": "Damage Resistance",
+            "key": "dCritResist",
+            "label": "Crit Injury Resist",
             "unit": "%",
             "progression": {
               "kind": "explicit",
               "values": {
                 "1": 5,
-                "2": 5,
-                "3": 5,
-                "4": 5,
-                "5": 5,
-                "6": 5
+                "2": 10,
+                "3": 15,
+                "4": 20,
+                "5": 25,
+                "6": 40
               }
             }
           }
@@ -5735,7 +5863,7 @@
     "dataSource": "extracted",
     "extraction": {
       "gameVersion": "instalado-local",
-      "extractedAt": "2026-08-19T19:52:48.016Z",
+      "extractedAt": "2026-08-19T21:31:06.724Z",
       "sourceFiles": [
         "items.xml",
         "recipes.xml",
@@ -6036,6 +6164,22 @@
               }
             },
             "tags": "farmerBonusHarvest"
+          },
+          {
+            "key": "dHarvestCount",
+            "label": "Harvest Yield",
+            "unit": "%",
+            "progression": {
+              "kind": "explicit",
+              "values": {
+                "1": 10,
+                "2": 20,
+                "3": 30,
+                "4": 40,
+                "5": 50,
+                "6": 100
+              }
+            }
           }
         ],
         "progression": {
@@ -6440,6 +6584,22 @@
               }
             },
             "tags": "farmerBonusSeed"
+          },
+          {
+            "key": "dHarvestCount",
+            "label": "Harvest Yield",
+            "unit": "%",
+            "progression": {
+              "kind": "explicit",
+              "values": {
+                "1": 2,
+                "2": 4,
+                "3": 6,
+                "4": 8,
+                "5": 10,
+                "6": 20
+              }
+            }
           }
         ],
         "progression": {
@@ -6591,7 +6751,7 @@
     "dataSource": "extracted",
     "extraction": {
       "gameVersion": "instalado-local",
-      "extractedAt": "2026-08-19T19:52:48.016Z",
+      "extractedAt": "2026-08-19T21:31:06.728Z",
       "sourceFiles": [
         "items.xml",
         "recipes.xml",
@@ -7214,6 +7374,22 @@
               }
             },
             "tags": "buffFatiguedTrigger,buffArmSprainedCHTrigger,buffLegSprainedCHTrigger,buffAbrasionCatch,buffLaceration,buffInfectionCatch,buffInjuryStunned01CHTrigger,buffInjuryBleedingTwo,buffInjuryBleedingBarbedWire"
+          },
+          {
+            "key": "dStaminaRegen",
+            "label": "Stamina Regen",
+            "unit": "%",
+            "progression": {
+              "kind": "explicit",
+              "values": {
+                "1": 2,
+                "2": 4,
+                "3": 6,
+                "4": 8,
+                "5": 10,
+                "6": 20
+              }
+            }
           }
         ],
         "progression": {
@@ -7365,7 +7541,7 @@
     "dataSource": "extracted",
     "extraction": {
       "gameVersion": "instalado-local",
-      "extractedAt": "2026-08-19T19:52:48.017Z",
+      "extractedAt": "2026-08-19T21:31:06.728Z",
       "sourceFiles": [
         "items.xml",
         "recipes.xml",
@@ -7663,6 +7839,22 @@
                 "4": -20,
                 "5": -25,
                 "6": -30
+              }
+            }
+          },
+          {
+            "key": "dStaminaLoss",
+            "label": "Stamina Drain",
+            "unit": "%",
+            "progression": {
+              "kind": "explicit",
+              "values": {
+                "1": -5,
+                "2": -10,
+                "3": -14.9,
+                "4": -20,
+                "5": -25,
+                "6": -29.9
               }
             }
           }
@@ -8052,6 +8244,22 @@
                 "6": 20
               }
             }
+          },
+          {
+            "key": "dFallDamage",
+            "label": "Fall Damage Resist",
+            "unit": "flat",
+            "progression": {
+              "kind": "explicit",
+              "values": {
+                "1": 1,
+                "2": 2,
+                "3": 3,
+                "4": 4,
+                "5": 5,
+                "6": 6
+              }
+            }
           }
         ],
         "progression": {
@@ -8203,7 +8411,7 @@
     "dataSource": "extracted",
     "extraction": {
       "gameVersion": "instalado-local",
-      "extractedAt": "2026-08-19T19:52:48.017Z",
+      "extractedAt": "2026-08-19T21:31:06.729Z",
       "sourceFiles": [
         "items.xml",
         "recipes.xml",
@@ -8484,6 +8692,22 @@
                 "4": 20,
                 "5": 20,
                 "6": 20
+              }
+            }
+          },
+          {
+            "key": "dAttributeLevel",
+            "label": "Skill Point Chance",
+            "unit": "%",
+            "progression": {
+              "kind": "explicit",
+              "values": {
+                "1": 5,
+                "2": 10,
+                "3": 15,
+                "4": 20,
+                "5": 25,
+                "6": 50
               }
             }
           }
@@ -8872,6 +9096,22 @@
                 "6": 20
               }
             }
+          },
+          {
+            "key": "dFallDamage",
+            "label": "Fall Damage Resist",
+            "unit": "flat",
+            "progression": {
+              "kind": "explicit",
+              "values": {
+                "1": 1,
+                "2": 2,
+                "3": 3,
+                "4": 4,
+                "5": 5,
+                "6": 6
+              }
+            }
           }
         ],
         "progression": {
@@ -9023,7 +9263,7 @@
     "dataSource": "extracted",
     "extraction": {
       "gameVersion": "instalado-local",
-      "extractedAt": "2026-08-19T19:52:48.017Z",
+      "extractedAt": "2026-08-19T21:31:06.729Z",
       "sourceFiles": [
         "items.xml",
         "recipes.xml",
@@ -9135,6 +9375,22 @@
                 "4": -40,
                 "5": -50,
                 "6": -60
+              }
+            }
+          },
+          {
+            "key": "dFoodWaterUse",
+            "label": "Food & Water Use",
+            "unit": "%",
+            "progression": {
+              "kind": "explicit",
+              "values": {
+                "1": -10,
+                "2": -20,
+                "3": -29.9,
+                "4": -40,
+                "5": -50,
+                "6": -59.9
               }
             }
           }
@@ -9891,7 +10147,7 @@
     "dataSource": "extracted",
     "extraction": {
       "gameVersion": "instalado-local",
-      "extractedAt": "2026-08-19T19:52:48.018Z",
+      "extractedAt": "2026-08-19T21:31:06.729Z",
       "sourceFiles": [
         "items.xml",
         "recipes.xml",
@@ -10759,7 +11015,7 @@
     "dataSource": "extracted",
     "extraction": {
       "gameVersion": "instalado-local",
-      "extractedAt": "2026-08-19T19:52:48.018Z",
+      "extractedAt": "2026-08-19T21:31:06.730Z",
       "sourceFiles": [
         "items.xml",
         "recipes.xml",
@@ -11291,6 +11547,22 @@
                 "6": -20
               }
             }
+          },
+          {
+            "key": "dLockpickSpeed",
+            "label": "Lockpick Speed",
+            "unit": "%",
+            "progression": {
+              "kind": "explicit",
+              "values": {
+                "1": 2,
+                "2": 4,
+                "3": 6,
+                "4": 8,
+                "5": 10,
+                "6": 20
+              }
+            }
           }
         ],
         "progression": {
@@ -11460,6 +11732,22 @@
               }
             },
             "tags": "buffFatiguedTrigger,buffArmSprainedCHTrigger,buffLegSprainedCHTrigger,buffAbrasionCatch,buffLaceration,buffInfectionCatch,buffInjuryStunned01CHTrigger,buffInjuryBleedingTwo,buffInjuryBleedingBarbedWire"
+          },
+          {
+            "key": "dFallDamage",
+            "label": "Fall Damage Resist",
+            "unit": "flat",
+            "progression": {
+              "kind": "explicit",
+              "values": {
+                "1": 1,
+                "2": 2,
+                "3": 3,
+                "4": 4,
+                "5": 5,
+                "6": 6
+              }
+            }
           }
         ],
         "progression": {
@@ -11611,7 +11899,7 @@
     "dataSource": "extracted",
     "extraction": {
       "gameVersion": "instalado-local",
-      "extractedAt": "2026-08-19T19:52:48.019Z",
+      "extractedAt": "2026-08-19T21:31:06.730Z",
       "sourceFiles": [
         "items.xml",
         "recipes.xml",
@@ -12113,6 +12401,22 @@
               }
             },
             "tags": "salvageHarvest,allHarvest"
+          },
+          {
+            "key": "dHarvestSalvage",
+            "label": "Salvage Yield",
+            "unit": "%",
+            "progression": {
+              "kind": "explicit",
+              "values": {
+                "1": 5,
+                "2": 10,
+                "3": 15,
+                "4": 20,
+                "5": 25,
+                "6": 30
+              }
+            }
           }
         ],
         "progression": {
@@ -12314,6 +12618,22 @@
                 "6": -40
               }
             }
+          },
+          {
+            "key": "dStaminaLoss",
+            "label": "Stamina Drain",
+            "unit": "%",
+            "progression": {
+              "kind": "explicit",
+              "values": {
+                "1": -5,
+                "2": -10,
+                "3": -14.9,
+                "4": -20,
+                "5": -25,
+                "6": -40
+              }
+            }
           }
         ],
         "progression": {
@@ -12465,7 +12785,7 @@
     "dataSource": "extracted",
     "extraction": {
       "gameVersion": "instalado-local",
-      "extractedAt": "2026-08-19T19:52:48.020Z",
+      "extractedAt": "2026-08-19T21:31:06.731Z",
       "sourceFiles": [
         "items.xml",
         "recipes.xml",

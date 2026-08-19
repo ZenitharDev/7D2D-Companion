@@ -25,7 +25,7 @@
 import { existsSync, readFileSync, writeFileSync, copyFileSync, mkdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { getAllPassiveEffects, getProperties, loadXml, toArray } from './xml.js';
+import { getAllDisplayValues, getAllPassiveEffects, getProperties, loadXml, toArray } from './xml.js';
 import type { BuffsXmlRoot, ItemsXmlRoot, RecipesXmlRoot, XmlBuff, XmlItem, XmlPassiveEffect } from './xml.js';
 import { buildLocalizationMap } from './csv.js';
 import type {
@@ -36,6 +36,7 @@ import type {
   ExplicitProgression,
   PassiveEntry,
   SetBonusData,
+  StatProgression,
   Tier,
 } from '../../src/types.js';
 
@@ -212,6 +213,38 @@ const TAG_LABELS: Record<string, string> = {
   perkDeadEye: 'Dead Eye',
 };
 
+/**
+ * Labels for the hidden per-tier bonuses that only show up as
+ * <display_value name="d...">, never as a plain <passive_effect> (see
+ * XmlDisplayValue). Hand-mapped from what each one's cvar/flavor text
+ * actually does — the internal names ("dCritResist", "dAttributeLevel") give
+ * no useful label on their own. Extend this after a re-extraction if a new
+ * one shows up unmapped (falls back to a humanized version of the raw name).
+ */
+const DISPLAY_VALUE_LABELS: Record<string, string> = {
+  dCritResist: 'Crit Injury Resist',
+  dNaturalCritHealing: 'Crit Injury Healing',
+  dTreatedCritHealing: 'Crit Injury Healing',
+  dAttributeLevel: 'Skill Point Chance',
+  dDamageResist: 'Damage Resistance',
+  dFallDamage: 'Fall Damage Resist',
+  dFitnessBartering: 'Bartering (Fitness)',
+  dStunResist: 'Stun Resist',
+  dHarvestCount: 'Harvest Yield',
+  dStaminaRegen: 'Stamina Regen',
+  dStaminaLoss: 'Stamina Drain',
+  dFoodWaterUse: 'Food & Water Use',
+  dLockpickSpeed: 'Lockpick Speed',
+  dHarvestSalvage: 'Salvage Yield',
+};
+
+function humanizeDisplayValueName(name: string): string {
+  return name
+    .replace(/^d/, '')
+    .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+    .trim();
+}
+
 function humanizeTag(tag: string): string {
   return tag
     .replace(/^buff/, '')
@@ -301,6 +334,12 @@ function findEffect(effects: XmlPassiveEffect[], name: string): XmlPassiveEffect
   return effects.find((e) => e.name === name);
 }
 
+/** True if two progressions land on the exact same number for every tier — used to drop a display_value that's just a UI restatement of a passive_effect we already captured. */
+function sameValues(a: StatProgression, b: ExplicitProgression): boolean {
+  if (a.kind !== 'explicit') return false;
+  return TIERS.every((t) => a.values[t] === b.values[t]);
+}
+
 function classFromTags(tags: string | undefined): 'light' | 'medium' | 'heavy' | null {
   if (!tags) return null;
   if (/lightArmor/.test(tags)) return 'light';
@@ -377,6 +416,15 @@ function extractPiece(item: XmlItem, existingPiece: ArmorPieceData | undefined, 
   for (const effect of effects) {
     if (consumedNames.has(effect.name)) continue;
     if (!effect.value) continue;
+    // ProgressionLevel = gated behind a specific perk/magazine level, not guaranteed for a random
+    // player (ex. Enforcer Outfit's GeneralDamageResist needs perkEnforcerApparel). Other requirement
+    // types (CVarCompare, IsEquipped, ...) just describe WHEN a normal stat applies during play
+    // (ex. Assassin's light reduction only while crouching in the dark) — still worth showing.
+    const progressionGate = effect.requirement?.find((r) => r.name === 'ProgressionLevel');
+    if (progressionGate) {
+      warnings.push({ setId, slot, message: `Pasivo "${effect.name}" en ${item.name} requiere progreso de perk (${progressionGate.progression_name ?? '?'}); se omite por no ser garantizado.` });
+      continue;
+    }
     const dedupeKey = `${effect.name}|${effect.tags ?? ''}`;
     if (seen.has(dedupeKey)) continue; // evita duplicar si el mismo efecto aparece 2 veces (ej. jitter)
     seen.add(dedupeKey);
@@ -397,6 +445,31 @@ function extractPiece(item: XmlItem, existingPiece: ArmorPieceData | undefined, 
       unit,
       progression,
       tags: effect.tags,
+    });
+  }
+
+  // Pasivos "ocultos" que solo existen como <display_value name="d..." value="v1,...,v6" tier="1,...,6"/>
+  // (el número real vive en un triggered_effect/cvar que no vale la pena rastrear a mano por set).
+  // Muchos de estos son solo una restatement visual de un passive_effect que YA capturamos arriba
+  // (mismos 6 valores) — si coincide exacto con algo que ya tenemos, se omite para no duplicar la fila.
+  for (const dv of getAllDisplayValues(item)) {
+    if (!dv.value || !dv.tier) continue;
+    const rawValues = parseValueList(dv.value);
+    if (rawValues.length !== 6) continue; // los de 1 valor son solo redundancia visual de un stat que ya capturamos aparte
+    if (seen.has(`display:${dv.name}`)) continue;
+    seen.add(`display:${dv.name}`);
+
+    const unit = inferUnit(rawValues, 'perc_add');
+    const displayValues = toDisplayValues(rawValues, unit);
+    const progression = buildProgressionFromValues(displayValues);
+    if (!progression) continue;
+    if (passives.some((p) => sameValues(p.progression, progression))) continue;
+
+    passives.push({
+      key: dv.name,
+      label: DISPLAY_VALUE_LABELS[dv.name] ?? humanizeDisplayValueName(dv.name),
+      unit,
+      progression,
     });
   }
 

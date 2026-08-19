@@ -15,6 +15,7 @@ const parser = new XMLParser({
       'triggered_effect',
       'requirement',
       'buff',
+      'display_value',
     ].includes(name),
 });
 
@@ -45,10 +46,29 @@ export interface XmlPassiveEffect {
   value?: string;
   tags?: string;
   level?: string;
+  /** Present when this specific effect is gated behind something like a perk/magazine progression (ex. GeneralDamageResist on Enforcer Outfit needs perkEnforcerApparel level 1) — not guaranteed for a random player, so we exclude these from the "always active" passives list. */
+  requirement?: XmlRequirement[];
+}
+
+/**
+ * Some pieces' real signature stat isn't a plain <passive_effect> at all —
+ * it's delivered via a <triggered_effect action="ModifyCVar"> (for the cvar
+ * system that drives buff magnitudes) with no direct static "value" we can
+ * read off the effect itself. The game always pairs that with a
+ * <display_value name="d..." value="v1,...,v6" tier="1,...,6"/> sibling —
+ * literally the number the game itself shows the player — which is a far
+ * more reliable source than trying to trace the cvar/triggered_effect logic
+ * by hand per set.
+ */
+export interface XmlDisplayValue {
+  name: string;
+  value?: string;
+  tier?: string;
 }
 
 export interface XmlEffectGroup {
   passive_effect?: XmlPassiveEffect[];
+  display_value?: XmlDisplayValue[];
 }
 
 export interface XmlItem {
@@ -79,6 +99,7 @@ export interface RecipesXmlRoot {
 export interface XmlRequirement {
   name: string;
   group_name?: string;
+  progression_name?: string;
   operation?: string;
   value?: string;
 }
@@ -122,4 +143,10 @@ export function getProperty(item: XmlItem, name: string): string | undefined {
 export function getAllPassiveEffects(item: XmlItem): XmlPassiveEffect[] {
   const groups = toArray(item.effect_group);
   return groups.flatMap((g) => toArray(g.passive_effect));
+}
+
+/** Junta todos los display_value de todos los effect_group de un item (ver XmlDisplayValue). */
+export function getAllDisplayValues(item: XmlItem): XmlDisplayValue[] {
+  const groups = toArray(item.effect_group);
+  return groups.flatMap((g) => toArray(g.display_value));
 }
