@@ -4,6 +4,7 @@ import { loadArmorSets } from '../data/loadArmorSets.js';
 import type { ArmorSlot, BuildSelection, Tier } from '../types.js';
 import SlotCard from './components/SlotCard.js';
 import ResultsPanel from './components/ResultsPanel.js';
+import { trackEvent } from './analytics.js';
 
 const SLOTS: { slot: ArmorSlot; label: string }[] = [
   { slot: 'helmet', label: 'Helmet' },
@@ -40,6 +41,8 @@ export default function App() {
   }
 
   function applySetToAllSlots(setId: string) {
+    const set = sets.find((s) => s.id === setId);
+    trackEvent('select_armor_set', { set_id: setId, set_name: set?.name ?? setId, class: set?.class ?? 'unknown', slot: 'all', method: 'quick_equip' });
     setSelection(() => {
       const next = { ...EMPTY_SELECTION };
       for (const { slot } of SLOTS) next[slot] = { setId, tier: 6 };
@@ -48,6 +51,7 @@ export default function App() {
   }
 
   function clearAll() {
+    trackEvent('clear_loadout');
     setSelection(EMPTY_SELECTION);
   }
 

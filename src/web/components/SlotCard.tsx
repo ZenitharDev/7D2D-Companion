@@ -1,5 +1,6 @@
 import type { ArmorSetData, ArmorSlot, Tier } from '../../types.js';
 import ItemIcon from './ItemIcon.js';
+import { trackEvent } from '../analytics.js';
 
 type SlotValue = { setId: string; tier: Tier } | null;
 
@@ -43,6 +44,8 @@ export default function SlotCard({ slot, label, sets, value, pieceInfo, onChange
       onChange(null);
       return;
     }
+    const set = sets.find((s) => s.id === setId);
+    trackEvent('select_armor_set', { set_id: setId, set_name: set?.name ?? setId, class: set?.class ?? 'unknown', slot, method: 'slot_select' });
     onChange({ setId, tier: value?.tier ?? 6 });
   }
 

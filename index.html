@@ -23,6 +23,10 @@
       href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Roboto:wght@400;500&family=Roboto+Mono:wght@500;600&display=swap"
       rel="stylesheet"
     />
+    <!-- GA4 loader. The dataLayer/gtag bootstrap itself lives in src/web/analytics.ts,
+         bundled as part of the app's own script ('self') instead of an inline
+         <script> here, so the CSP above doesn't need 'unsafe-inline' for scripts. -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0BTTTT46L2"></script>
   </head>
   <body>
     <div id="root"></div>
