@@ -1,0 +1,35 @@
+{
+  "name": "7days-armor-calculator",
+  "version": "0.1.0",
+  "description": "Armor build calculator and comparator for 7 Days to Die",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "dev:web": "vite",
+    "build": "tsc -p tsconfig.json",
+    "build:web": "vite build",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.scripts.json && tsc -p tsconfig.web.json",
+    "generate:placeholder-data": "tsx scripts/generate-armor-data.ts",
+    "extract:scan": "tsx scripts/extract/scan.ts",
+    "extract": "tsx scripts/extract/extract-armor.ts",
+    "extract:icons": "tsx scripts/extract/copy-icons.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@vitejs/plugin-react": "^4.7.0",
+    "fast-xml-parser": "^5.11.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vite": "^5.4.21",
+    "vitest": "^2.1.0"
+  },
+  "dependencies": {
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "_readme": "Mapa entre los XML del juego y nuestro schema. Verificado contra una instalación real (Data/Config): las armaduras son UN item por (set, slot) — no un item por tier — agrupado por la propiedad ArmorGroup (ej. 'groupPreacher'), con Quality 1-6 (nuestro 'Tier'). El armor rating sale de PhysicalDamageResist (rango min,max interpolado). Los 15 sets con Set Bonus propio (buff '{SetKey}SetBonus' en buffs.xml) son el roster real: Assassin, Athletic, Biker, Commando, Enforcer, Farmer, Lumberjack, Miner, Nerd, Nomad, Preacher, Raider, Ranger, Rogue, Scavenger. Hay ~14 sets más (Beach, Winter, Desert, etc.) que reusan estos mismos ArmorGroups como reskins cosméticos sin Set Bonus propio; no están listados acá.",
+
+  "files": {
+    "items": "items.xml",
+    "recipes": "recipes.xml",
+    "buffs": "buffs.xml",
+    "localization": "Localization.csv"
+  },
+
+  "excludedEffectNames": [
+    "ModSlots",
+    "ModPowerBonus",
+    "ElementalDamageResist",
+    "DegradationMax",
+    "DegradationPerUse",
+    "Mobility",
+    "StaminaChangeOT"
+  ],
+
+  "armorRatingEffectName": "PhysicalDamageResist",
+  "mobilityEffectName": "Mobility",
+  "staminaEffectName": "StaminaChangeOT",
+  "staminaEffectTag": "running",
+
+  "sets": [
+    { "id": "preacher", "name": "Preacher", "armorGroup": "groupPreacher", "setBonusBuff": "buffPreacherSetBonus" },
+    { "id": "assassin", "name": "Assassin", "armorGroup": "groupAssassin", "setBonusBuff": "buffAssassinSetBonus" },
+    { "id": "raider", "name": "Raider", "armorGroup": "groupRaider", "setBonusBuff": "buffRaiderSetBonus" },
+    { "id": "athletic", "name": "Athletic", "armorGroup": "groupAthletic", "setBonusBuff": "buffAthleticSetBonus" },
+    { "id": "biker", "name": "Biker", "armorGroup": "groupBiker", "setBonusBuff": "buffBikerSetBonus" },
+    { "id": "commando", "name": "Commando", "armorGroup": "groupCommando", "setBonusBuff": "buffCommandoSetBonus" },
+    { "id": "enforcer", "name": "Enforcer", "armorGroup": "groupEnforcer", "setBonusBuff": "buffEnforcerSetBonus" },
+    { "id": "farmer", "name": "Farmer", "armorGroup": "groupFarmer", "setBonusBuff": "buffFarmerSetBonus" },
+    { "id": "lumberjack", "name": "Lumberjack", "armorGroup": "groupLumberjack", "setBonusBuff": "buffLumberjackSetBonus" },
+    { "id": "miner", "name": "Miner", "armorGroup": "groupMiner", "setBonusBuff": "buffMinerSetBonus" },
+    { "id": "nerd", "name": "Nerd", "armorGroup": "groupNerd", "setBonusBuff": "buffNerdSetBonus" },
+    { "id": "nomad", "name": "Nomad", "armorGroup": "groupNomad", "setBonusBuff": "buffNomadSetBonus" },
+    { "id": "ranger", "name": "Ranger", "armorGroup": "groupRanger", "setBonusBuff": "buffRangerSetBonus" },
+    { "id": "rogue", "name": "Rogue", "armorGroup": "groupRogue", "setBonusBuff": "buffRogueSetBonus" },
+    { "id": "scavenger", "name": "Scavenger", "armorGroup": "groupScavenger", "setBonusBuff": "buffScavengerSetBonus" }
+  ],
+
+  "slotByEquipSlot": {
+    "Head": "helmet",
+    "Chest": "chest",
+    "Hands": "gloves",
+    "Feet": "boots"
+  }
+}

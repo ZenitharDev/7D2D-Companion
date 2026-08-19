@@ -1,0 +1,162 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://7daysbuildcompanion/schemas/armor-sets.schema.json",
+  "title": "7 Days to Die - Armor Sets",
+  "description": "Esquema de los 15 sets de armadura (Light/Medium/Heavy), sus piezas por slot, progresion Tier 1-6 y Set Bonus.",
+  "type": "array",
+  "items": { "$ref": "#/definitions/ArmorSet" },
+  "definitions": {
+    "ArmorSlot": { "type": "string", "enum": ["helmet", "chest", "gloves", "boots"] },
+    "ArmorClass": { "type": "string", "enum": ["light", "medium", "heavy"] },
+    "Tier": { "type": "integer", "minimum": 1, "maximum": 6 },
+    "CraftingMaterial": {
+      "type": "object",
+      "required": ["itemId", "name", "quantity"],
+      "properties": {
+        "itemId": { "type": "string" },
+        "name": { "type": "string" },
+        "quantity": { "type": "number", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "LinearProgression": {
+      "description": "value(tier) = round(base + growth * (tier - 1), decimals). Usado por datos placeholder.",
+      "type": "object",
+      "required": ["base", "growth"],
+      "properties": {
+        "kind": { "type": "string", "enum": ["linear"] },
+        "base": { "type": "number" },
+        "growth": { "type": "number" },
+        "decimals": { "type": "integer", "minimum": 0, "maximum": 2 }
+      },
+      "additionalProperties": false
+    },
+    "ExplicitProgression": {
+      "description": "Valores concretos por tier, tal cual salen de items.xml. Usado por el extractor.",
+      "type": "object",
+      "required": ["kind", "values"],
+      "properties": {
+        "kind": { "type": "string", "enum": ["explicit"] },
+        "values": {
+          "type": "object",
+          "patternProperties": { "^[1-6]$": { "type": "number" } },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "StatProgression": {
+      "oneOf": [{ "$ref": "#/definitions/LinearProgression" }, { "$ref": "#/definitions/ExplicitProgression" }]
+    },
+    "PassiveEntry": {
+      "type": "object",
+      "required": ["key", "label", "unit", "progression"],
+      "properties": {
+        "key": { "type": "string" },
+        "label": { "type": "string" },
+        "unit": { "type": "string", "enum": ["%", "flat"] },
+        "progression": { "$ref": "#/definitions/StatProgression" },
+        "tags": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "ArmorPieceData": {
+      "type": "object",
+      "required": ["itemId", "name", "slot", "passives", "progression", "tierMaterials"],
+      "properties": {
+        "itemId": { "type": "string" },
+        "name": { "type": "string" },
+        "slot": { "$ref": "#/definitions/ArmorSlot" },
+        "description": { "type": "string" },
+        "passives": {
+          "type": "array",
+          "description": "0, 1 o varios pasivos propios de la pieza (no todas las piezas tienen uno en el juego real).",
+          "items": { "$ref": "#/definitions/PassiveEntry" }
+        },
+        "progression": {
+          "type": "object",
+          "required": ["armorRating", "movementPenaltyPct", "staminaPenaltyPct"],
+          "properties": {
+            "armorRating": { "$ref": "#/definitions/StatProgression" },
+            "movementPenaltyPct": { "$ref": "#/definitions/StatProgression" },
+            "staminaPenaltyPct": { "$ref": "#/definitions/StatProgression" }
+          },
+          "additionalProperties": false
+        },
+        "tierMaterials": {
+          "type": "object",
+          "description": "Claves '1'..'6', cada una un array de CraftingMaterial.",
+          "patternProperties": {
+            "^[1-6]$": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/CraftingMaterial" }
+            }
+          },
+          "additionalProperties": false
+        },
+        "requiredPerkLevel": {
+          "type": "object",
+          "patternProperties": { "^[1-6]$": { "type": "integer" } },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "SetBonusLevel": {
+      "type": "object",
+      "required": ["effectValue", "effectDescription"],
+      "properties": {
+        "effectValue": { "type": "number" },
+        "effectDescription": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "SetBonusData": {
+      "type": "object",
+      "required": ["name", "description", "levels"],
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "levels": {
+          "type": "object",
+          "patternProperties": { "^[1-6]$": { "$ref": "#/definitions/SetBonusLevel" } },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "ArmorSet": {
+      "type": "object",
+      "required": ["id", "name", "class", "setBonus", "pieces"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "class": { "$ref": "#/definitions/ArmorClass" },
+        "description": { "type": "string" },
+        "setBonus": { "$ref": "#/definitions/SetBonusData" },
+        "pieces": {
+          "type": "object",
+          "properties": {
+            "helmet": { "$ref": "#/definitions/ArmorPieceData" },
+            "chest": { "$ref": "#/definitions/ArmorPieceData" },
+            "gloves": { "$ref": "#/definitions/ArmorPieceData" },
+            "boots": { "$ref": "#/definitions/ArmorPieceData" }
+          },
+          "additionalProperties": false
+        },
+        "dataSource": { "type": "string", "enum": ["placeholder", "extracted"] },
+        "extraction": {
+          "type": "object",
+          "required": ["gameVersion", "extractedAt", "sourceFiles"],
+          "properties": {
+            "gameVersion": { "type": "string" },
+            "extractedAt": { "type": "string" },
+            "sourceFiles": { "type": "array", "items": { "type": "string" } }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
